@@ -37,10 +37,12 @@ namespace GraphicsExample
             // Draw the Triangle
             EnableVertexAttribArray(0);
             VertexAttribPointer(0, 2, GL_FLOAT, false, 0, IntPtr.Zero);
-            DrawArrays(GL_TRIANGLES, 0, 3);
-            SwapBuffers(window);
-            // Wait for input in console
-            Console.ReadLine();
+            do
+            {
+                DrawArrays(GL_TRIANGLES, 0, 3);
+                SwapBuffers(window);
+                PollEvents();
+            } while (WindowShouldClose(window) == 0);
         }
 
         // OpenGL Bindings
@@ -66,15 +68,12 @@ namespace GraphicsExample
         [DllImport(GLFW_DLL, EntryPoint = "glfwMakeContextCurrent")] private static extern void MakeContextCurrent(IntPtr window);
         [DllImport(GLFW_DLL, EntryPoint = "glfwSwapBuffers")] private static extern void SwapBuffers(IntPtr window);
         [DllImport(GLFW_DLL, EntryPoint = "glfwGetProcAddress")] private static extern IntPtr GetProcAddress(string procname);
+        [DllImport(GLFW_DLL, EntryPoint = "glfwPollEvents")] private static extern void PollEvents();
+        [DllImport(GLFW_DLL, EntryPoint = "glfwWindowShouldClose")] private static extern int WindowShouldClose(IntPtr window);
 
         private static T GetMethod<T>()
         {
             var funcPtr = GetProcAddress(typeof(T).Name);
-            if (funcPtr == IntPtr.Zero)
-            {
-                Console.WriteLine($"Unable to load Function Pointer: {typeof(T).Name}");
-                return default(T);
-            }
             return Marshal.GetDelegateForFunctionPointer<T>(funcPtr);
         }
 
