@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 namespace GraphicsExample
@@ -9,6 +9,7 @@ namespace GraphicsExample
         private const int GL_STATIC_DRAW = 0x88E4;
         private const int GL_FLOAT = 0x1406;
         private const int GL_TRIANGLES = 0x0004;
+        private const int GL_COLOR_BUFFER_BIT = 0x4000;
         private const string OPENGL_DLL = "opengl32";
         private const string GLFW_DLL = "glfw";
 
@@ -39,6 +40,8 @@ namespace GraphicsExample
             VertexAttribPointer(0, 2, GL_FLOAT, false, 0, IntPtr.Zero);
             do
             {
+                ClearColor(0.0F, 0.0F, 0.0F, 1.0F);
+                Clear(GL_COLOR_BUFFER_BIT);
                 DrawArrays(GL_TRIANGLES, 0, 3);
                 SwapBuffers(window);
                 PollEvents();
@@ -54,6 +57,8 @@ namespace GraphicsExample
         private delegate void glVertexAttribPointer(uint indx, int size, uint type, bool normalized, int stride, IntPtr ptr);
         private delegate void glGenVertexArrays(int n, ref uint arrays);
         private delegate void glBindVertexArray(uint array);
+        private delegate void glClearColor(float r, float g, float b, float a);
+        private delegate void glClear(int mask);
         private static glGenBuffers GenBuffers;
         private static glBindBuffer BindBuffer;
         private static glBufferData BufferData;
@@ -61,6 +66,8 @@ namespace GraphicsExample
         private static glVertexAttribPointer VertexAttribPointer;
         private static glGenVertexArrays GenVertexArrays;
         private static glBindVertexArray BindVertexArray;
+        private static glClearColor ClearColor;
+        private static glClear Clear;
 
         // GLFW Bindings
         [DllImport(GLFW_DLL, EntryPoint = "glfwInit")] private static extern bool Initialise();
@@ -86,6 +93,8 @@ namespace GraphicsExample
             VertexAttribPointer = GetMethod<glVertexAttribPointer>();
             GenVertexArrays = GetMethod<glGenVertexArrays>();
             BindVertexArray = GetMethod<glBindVertexArray>();
+            ClearColor = GetMethod<glClearColor>();
+            Clear = GetMethod<glClear>();
         }
     }
 }
