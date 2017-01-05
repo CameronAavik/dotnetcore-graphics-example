@@ -10,8 +10,16 @@ namespace GraphicsExample
         private const int GL_FLOAT = 0x1406;
         private const int GL_TRIANGLES = 0x0004;
         private const int GL_COLOR_BUFFER_BIT = 0x4000;
-        private const string OPENGL_DLL = "opengl32";
+
+        #if WINDOWS
+            private const string OPENGL_DLL = "opengl32.dll";
+        #elif OSX
+            private const string OPENGL_DLL = "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib";
+        #elif LINUX
+            private const string OPENGL_DLL = "libGL.so.1";
+        #endif
         private const string GLFW_DLL = "glfw";
+
 
         // Triangle vertices
         private static float[] vertices = {
