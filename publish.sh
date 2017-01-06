@@ -1,14 +1,27 @@
-mv Program.cs Program.cs.temp
-echo "#define WINDOWS" | cat - Program.cs.temp > Program.cs
-dotnet publish -c Release -r win10-x64
-rm Program.cs
-echo "#define OSX" | cat - Program.cs.temp > Program.cs
-dotnet publish -c Release -r osx.10.10-x64
-rm Program.cs
-echo "#define LINUX" | cat - Program.cs.temp > Program.cs
-dotnet publish -c Release -r ubuntu.14.04-x64
-rm Program.cs
-mv Program.cs.temp Program.cs
-cp "glfw.dll" "./bin/Release/netcoreapp1.0/win10-x64/publish"
-cp "libglfw.dylib" "./bin/Release/netcoreapp1.0/osx.10.10-x64/publish"
-cp "libglfw.so" "./bin/Release/netcoreapp1.0/ubuntu.14.04-x64/publish"
+# Clean output directory
+rm -rf out
+
+# Back up the current project.json
+mv project.json project.json.bak
+
+# Windows
+cp "/build_jsons/project.windows.json" "project.json"
+dotnet restore
+dotnet publish -c Release -o "out/windows"
+rm project.json
+
+# OSX
+cp "/build_jsons/project.osx.json" "project.json"
+dotnet restore
+dotnet publish -c Release -o "out/osx"
+rm project.json
+
+# Linux
+cp "/build_jsons/project.linux.json" "project.json"
+dotnet restore
+dotnet publish -c Release -o "out/linux"
+rm project.json
+
+# Restore backup
+mv project.json.bak project.json
+dotnet restore

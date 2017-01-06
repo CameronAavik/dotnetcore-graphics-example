@@ -3,7 +3,7 @@
   "buildOptions": {
     "emitEntryPoint": true,
     "define": [
-      "WINDOWS"
+      "OSX"
     ]
   },
   "frameworks": {
@@ -15,5 +15,8 @@
         }
       }
     }
+  },
+  "publishOptions": {
+    "includeFiles": "libglfw.dylib"
   }
 }

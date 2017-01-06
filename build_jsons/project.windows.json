@@ -15,5 +15,8 @@
         }
       }
     }
+  },
+  "publishOptions": {
+    "includeFiles": "glfw.dll"
   }
 }

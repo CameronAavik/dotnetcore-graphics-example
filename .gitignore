@@ -2,6 +2,7 @@
 *.*~
 bin/
 obj/
+out/
 project.lock.json
 .DS_Store
 *.pyc
