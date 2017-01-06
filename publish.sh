@@ -5,19 +5,19 @@ rm -rf out
 mv project.json project.json.bak
 
 # Windows
-cp "/build_jsons/project.windows.json" "project.json"
+cp "./build_jsons/project.windows.json" "project.json"
 dotnet restore
 dotnet publish -c Release -o "out/windows"
 rm project.json
 
 # OSX
-cp "/build_jsons/project.osx.json" "project.json"
+cp "./build_jsons/project.osx.json" "project.json"
 dotnet restore
 dotnet publish -c Release -o "out/osx"
 rm project.json
 
 # Linux
-cp "/build_jsons/project.linux.json" "project.json"
+cp "./build_jsons/project.linux.json" "project.json"
 dotnet restore
 dotnet publish -c Release -o "out/linux"
 rm project.json
