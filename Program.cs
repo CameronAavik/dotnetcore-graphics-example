@@ -11,13 +11,13 @@ namespace GraphicsExample
         private const int GL_TRIANGLES = 0x0004;
         private const int GL_COLOR_BUFFER_BIT = 0x4000;
 
-        #if WINDOWS
-            private const string OPENGL_DLL = "opengl32.dll";
-        #elif OSX
+#if WINDOWS
+        private const string OPENGL_DLL = "opengl32.dll";
+#elif OSX
             private const string OPENGL_DLL = "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib";
-        #elif LINUX
+#elif LINUX
             private const string OPENGL_DLL = "libGL.so.1";
-        #endif
+#endif
         private const string GLFW_DLL = "glfw";
 
 
@@ -89,6 +89,11 @@ namespace GraphicsExample
         private static T GetMethod<T>()
         {
             var funcPtr = GetProcAddress(typeof(T).Name);
+            if (funcPtr == IntPtr.Zero)
+            {
+                Console.WriteLine($"Unable to load Function Pointer: {typeof(T).Name}");
+                return default(T);
+            }
             return Marshal.GetDelegateForFunctionPointer<T>(funcPtr);
         }
 
