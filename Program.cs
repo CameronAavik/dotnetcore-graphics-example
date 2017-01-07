@@ -14,9 +14,9 @@ namespace GraphicsExample
 #if WINDOWS
         private const string OPENGL_DLL = "opengl32.dll";
 #elif OSX
-            private const string OPENGL_DLL = "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib";
+        private const string OPENGL_DLL = "/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib";
 #elif LINUX
-            private const string OPENGL_DLL = "libGL.so.1";
+        private const string OPENGL_DLL = "libGL.so.1";
 #endif
         private const string GLFW_DLL = "glfw";
 
