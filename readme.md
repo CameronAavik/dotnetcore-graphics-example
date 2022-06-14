@@ -1,4 +1,9 @@
-# Cross-Platform Triangle in .NET Core
+# :warning: **THIS REPO IS OUTDATED**
+
+This repo was originally written as an accompaniment to a [blog post](https://medium.com/@cameronaavik/cross-platform-graphics-in-net-core-901be29dabd7) written in January 2017, in the early days of .NET Core.  
+There are now many cross-platform .NET graphics frameworks available to use rather than the approach used in this repo.  
+
+## Cross-Platform Triangle in .NET Core
 
 Makes use of OpenGL and GLFW.
 
